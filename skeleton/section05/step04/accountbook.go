@@ -161,7 +161,7 @@ func SaveSummary(file string, summaries []*Summary) {
 
 	cw.Flush()
 
-	if /* 書き込みでエラーが発生していないか確認*/; err != nil {
+	if /* TODO: 書き込みでエラーが発生していないか確認*/; err != nil {
 		fmt.Fprintln(os.Stderr, "エラー：", err)
 		os.Exit(1)
 	}
