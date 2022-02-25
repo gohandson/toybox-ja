@@ -1,0 +1,32 @@
+{{define "index" -}}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>connpass event watcher</title>
+	</head>
+	<body>
+		<h1>イベント一覧</h1>
+		<h2>条件</h2>
+		<ul>
+		{{- range .Conditions}}
+			<li>
+				{{if eq .Kind "keyword"}}キーワード{{end -}}
+				{{if eq .Kind "keyword_or"}}キーワード(OR){{end -}}
+				{{if eq .Kind "ym"}}年月{{end -}}
+				{{if eq .Kind "ymd"}}年月日{{end -}}
+				: {{.Value}}
+			</li>
+		{{end -}}
+		</ul>
+		<h2>イベント</h2>
+		{{- with .Events -}}
+		<ul>
+		{{- range .}}<li><a href={{.URL}}>{{.Title}}</li>{{end -}}
+		</ul>
+		{{- else}}
+			該当するイベントがありません
+		{{- end}}
+	</body>
+</html>
+{{- end}}

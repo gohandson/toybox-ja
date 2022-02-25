@@ -1,0 +1,46 @@
+{{define "index" -}}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>connpass event watcher</title>
+	</head>
+	<body>
+		<h1>イベント一覧</h1>
+		<h2>条件</h2>
+		<ul>
+		{{- range .Conditions}}
+			<li><form method="post" action="/remove">
+				{{if eq .Kind "keyword"}}キーワード{{end -}}
+				{{if eq .Kind "keyword_or"}}キーワード(OR){{end -}}
+				{{if eq .Kind "ym"}}年月{{end -}}
+				{{if eq .Kind "ymd"}}年月日{{end -}}
+				: {{.Value}}
+				<input type="hidden" name="id" value="{{.ID}}">
+				<input type="submit" value="削除">
+			</form></li>
+		{{end -}}
+		</ul>
+		<form method="post" action="/add">
+			<label for="kind">種類</label>
+			<select name="kind">
+				<option value="keyword">キーワード</option>
+				<option value="keyword_or">キーワード(OR)</option>
+				<option value="ym">年月(YYYYMM)</option>
+				<option value="ymd">年月日(YYYYMMDD)</option>
+			</select>
+			<label for="value">値</label>
+			<input name="value" type="text">
+			<input type="submit" value="追加">
+		</form>
+		<h2>イベント</h2>
+		{{- with .Events -}}
+		<ul>
+		{{- range .}}<li><a href={{.URL}}>{{.Title}}</li>{{end -}}
+		</ul>
+		{{- else}}
+			該当するイベントがありません
+		{{- end}}
+	</body>
+</html>
+{{- end}}
