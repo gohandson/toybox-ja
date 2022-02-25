@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gohandson/toybox-ja/solution/section09/step05/eventwatcher"
+	"github.com/gohandson/toybox-ja/skeleton/section09/step05/eventwatcher"
 )
 
 func main() {
