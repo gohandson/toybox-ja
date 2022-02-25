@@ -33,7 +33,7 @@
 			<input name="value" type="text">
 			<input type="submit" value="追加">
 		</form>
-		<h2>イベント(<a href="/feed">RSSフィード</a>)</h2>
+		<h2>イベント</h2>
 		{{- with .Events -}}
 		<ul>
 		{{- range .}}<li><a href={{.URL}}>{{.Title}}</li>{{end -}}

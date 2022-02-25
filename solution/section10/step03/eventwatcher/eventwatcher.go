@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"cloud.google.com/go/datastore"
-	"github.com/gorilla/feeds"
 	"github.com/tenntenn/connpass"
 )
 
@@ -129,25 +128,4 @@ func (ew *EventWatcher) RemoveCondition(ctx context.Context, id int64) error {
 		return err
 	}
 	return nil
-}
-
-func (ew *EventWatcher) Feed(es []*connpass.Event, feedURL string) *feeds.Feed {
-
-	feed := &feeds.Feed{
-		Title:   "Event Watcher",
-		Link:    &feeds.Link{Href: feedURL},
-		Created: time.Now(),
-		Items:   make([]*feeds.Item, len(es)),
-	}
-
-	for i := range es {
-		feed.Items[i] = &feeds.Item{
-			Title:       es[i].Title,
-			Link:        &feeds.Link{Href: es[i].URL},
-			Description: es[i].Description,
-			Created:     es[i].StartedAt,
-		}
-	}
-
-	return feed
 }
