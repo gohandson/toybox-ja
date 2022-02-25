@@ -129,12 +129,6 @@ func ConvertAll(ctx context.Context, root string, to, from Format) error {
 
 	walkfunc := func(path string, info fs.FileInfo, err error) (rerr error) {
 		defer trace.StartRegion(ctx, "convert").End()
-		select {
-		case <-ctx.Done():
-			// キャンセルされた
-			return ctx.Err()
-		default:
-		}
 
 		// エラーが発生した
 		if err != nil {
