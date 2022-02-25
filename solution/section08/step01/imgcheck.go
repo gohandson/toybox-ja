@@ -2,7 +2,6 @@ package imgcheck
 
 import (
 	"errors"
-	"fmt"
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
@@ -10,8 +9,6 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
-
-	"go.uber.org/multierr"
 )
 
 // ベースとなるエラー
@@ -44,12 +41,13 @@ func Validate(r io.Reader, rules ...Rule) error {
 		return err
 	}
 
-	var rerr error
 	for _, rule := range rules {
-		rerr = multierr.Append(rerr, rule(img, format))
+		if err := rule(img, format); err != nil {
+			return err
+		}
 	}
 
-	return rerr
+	return nil
 }
 
 // ディレクトリ以下の画像ファイルのバリデーションを行う
@@ -77,7 +75,7 @@ func ValidateDir(root string, rules ...Rule) error {
 
 		// バリデーションをかける
 		if err := Validate(file, rules...); err != nil {
-			return fmt.Errorf("%s: %w", path, err)
+			return err
 		}
 		return nil
 	}

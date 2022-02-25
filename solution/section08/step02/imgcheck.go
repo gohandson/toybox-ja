@@ -2,7 +2,6 @@ package imgcheck
 
 import (
 	"errors"
-	"fmt"
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
@@ -136,7 +135,7 @@ func ValidateDir(root string, rules ...Rule) error {
 
 		// バリデーションをかける
 		if err := Validate(file, rules...); err != nil {
-			return fmt.Errorf("%s: %w", path, err)
+			return err
 		}
 		return nil
 	}
