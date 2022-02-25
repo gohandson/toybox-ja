@@ -1,7 +1,6 @@
 package eventwatcher
 
 import (
-	"embed"
 	"html/template"
 	"log"
 	"net/http"
@@ -10,9 +9,7 @@ import (
 )
 
 var (
-	//go:embed _template/*.html
-	tmplFS embed.FS
-	tmpl   = template.Must(template.ParseFS(tmplFS, "_template/*.html"))
+	tmpl = template.Must(template.ParseGlob("eventwatcher/_template/*.html"))
 )
 
 func (ew *EventWatcher) initHandlers() {
