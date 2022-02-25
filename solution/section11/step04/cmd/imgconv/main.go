@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"runtime/trace"
+	"time"
 
 	imgconv "github.com/gohandson/toybox-ja/solution/section11/step04"
 )
@@ -43,7 +44,10 @@ func run() (rerr error) {
 	}
 	defer trace.Stop()
 
-	ctx, task := trace.NewTask(context.Background(), "imgconv")
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	ctx, task := trace.NewTask(ctx, "imgconv")
 	defer task.End()
 	if err := imgconv.ConvertAll(ctx, os.Args[1], flagFrom, flagTo); err != nil {
 		return err
