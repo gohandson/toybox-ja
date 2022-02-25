@@ -16,12 +16,12 @@ func main() {
 }
 
 func run() error {
-	cli := connpass.NewClient()
 	params, err := connpass.SearchParam(connpass.Keyword("golang"))
 	if err != nil {
 		return err
 	}
 
+	cli := connpass.NewClient()
 	ctx := context.Background()
 	result, err := cli.Search(ctx, params)
 	if err != nil {
