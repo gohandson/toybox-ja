@@ -1,7 +1,7 @@
 // TODO: モジュールパスは自分のリポジトリのものに変える
 // TODO: GitHub上でモジュールを公開する
 // TODO: go install モジュールパス/cmd/imgconv@latest を実行してみる
-module github.com/gohandson/toybox-ja/solution/section06/step03
+module github.com/gohandson/toybox-ja/skeleton/section06/step03
 
 go 1.17
 

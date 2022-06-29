@@ -1,6 +1,6 @@
 // TODO: モジュールパスは自分のリポジトリのものに変える
 // TODO: GitHub上でリリースを作りバージョンを公開する
-module github.com/gohandson/toybox-ja/solution/section06/step04
+module github.com/gohandson/toybox-ja/skeleton/section06/step04
 
 go 1.17
 
