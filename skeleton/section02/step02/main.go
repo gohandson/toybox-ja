@@ -22,7 +22,7 @@ func main() {
 	
 	if /* TODO: answerが2の場合 */ {
 		fmt.Println("正解!")
-	} /* それ以外の場合 */ {
+	} /* TODO: それ以外の場合 */ {
 		fmt.Println("不正解!")
 		fmt.Println("答えは2です")
 	}
