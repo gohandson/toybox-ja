@@ -1,3 +1,3 @@
-module github.com/gohandson/toybox-ja/solution/section03/step03
+module github.com/gohandson/toybox-ja/skeleton/section03/step03
 
 go 1.17
