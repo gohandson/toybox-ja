@@ -1,4 +1,4 @@
-module github.com/gohandson/toybox-ja/solution/section08/step04
+module github.com/gohandson/toybox-ja/skeleton/section08/step04
 
 go 1.17
 
