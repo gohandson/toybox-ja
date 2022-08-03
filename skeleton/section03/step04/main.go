@@ -147,6 +147,7 @@ func main() {
 			ratio = 4
 		case maxSame == 3:
 			fmt.Println("スリーカード")
+			ratio = 3
 		case len(numCount) == 3:
 			fmt.Println("ツーペア")
 			ratio = 2
