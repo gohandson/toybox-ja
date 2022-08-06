@@ -9,7 +9,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
 	// TODO: golang.org/x/image/tiffパッケージをインポートする
+
 )
 
 // Formatは画像形式を表す
