@@ -18,7 +18,7 @@ import (
 type Format int
 
 const (
-	Unkown Format = iota
+	Unknown Format = iota
 	PNG
 	JPEG
 	// TODO: TIFFを足す
@@ -36,7 +36,7 @@ func (f Format) String() string {
 		// TODO: "tiff"を返す
 
 	}
-	return "unkown"
+	return "unknown"
 }
 
 // Setは文字列形式から対応する画像形式を設定する
@@ -76,12 +76,12 @@ func FormatFromPath(path string) Format {
 	case ".tiff":
 		return TIFF
 	}
-	return Unkown
+	return Unknown
 }
 
 // ReplaceExtは拡張子を指定した形式のものに書き換える
 func ReplaceExt(path string, f Format) string {
-	if f == Unkown {
+	if f == Unknown {
 		return path
 	}
 
@@ -109,7 +109,7 @@ func Encode(w io.Writer, img image.Image, f Format) error {
 func Decode(r io.Reader) (image.Image, Format, error) {
 	img, format, err := image.Decode(r)
 	if err != nil {
-		return nil, Unkown, err
+		return nil, Unknown, err
 	}
 
 	switch format {
@@ -121,7 +121,7 @@ func Decode(r io.Reader) (image.Image, Format, error) {
 		return img, TIFF, nil
 	}
 
-	return nil, Unkown, image.ErrFormat
+	return nil, Unknown, image.ErrFormat
 }
 
 // ConvertAllは指定したディレクトリ以下の画像ファイルの変換を行う
