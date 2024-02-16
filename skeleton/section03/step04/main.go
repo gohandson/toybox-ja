@@ -30,10 +30,10 @@ func main() {
 	}
 
 	// 山札を作ります
-	all := make([]*card, 0, 13*4)
+	all := make([]card, 0, 13*4)
 	for s := suitHeart; s <= suitSpade; s++ {
 		for n := 2; n <= 14; n++ {
-			all = append(all, &card{
+			all = append(all, card{
 				suit:   s,
 				number: n,
 			})
