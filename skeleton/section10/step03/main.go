@@ -1,9 +1,7 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"net"
 	"os"
 
 	"github.com/gohandson/toybox-ja/skeleton/section10/step03/eventwatcher"
@@ -17,13 +15,7 @@ func main() {
 }
 
 func run() error {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	addr := net.JoinHostPort("", port)
-
-	ew, err := eventwatcher.New(context.Background(), addr)
+	ew, err := eventwatcher.New(":8080")
 	if err != nil {
 		return err
 	}

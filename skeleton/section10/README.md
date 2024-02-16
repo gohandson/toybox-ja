@@ -1,14 +1,24 @@
-# Section 10: 勉強会検索サイトをインターネットに公開しよう
+# Section 10: 勉強会検索サイトを作ろう
 ## 取り組むこと
 ### 学ぶこと
-* Google App Engine
-* gcloudコマンド
-* Hello, App Engine
-* ポートの取得
-* 静的ファイルのアップロード
-* embedパッケージ
-* Google Cloud Datastore
+* net/httpパッケージ
+* リクエストの送信
+* GETパラメタの付加
+* connpass API
+* connpassのAPIクライアントライブラリ
+* 内部パッケージ
+* APIクライアントのモック
+* Hello, HTTPサーバ
+* HTTPハンドラ
+* リクエストの取得
+* レスポンスの送信
+* html/templateパッケージ
+* リダイレクト
+* HTTPハンドラのテスト
+* database/sqlパッケージ
+* データの保存
+* データの取得
 
 ### 作るもの
 
-* connpass上で公開されている勉強会を検索するサイトの公開
+* connpass上で公開されている勉強会を検索するサイト
