@@ -29,11 +29,11 @@ func (c *uicard) draw(screen *ebiten.Image) {
 	w, _ := cardimg.Size()
 
 	x := float64(10 + (5+w)*c.idx)
-	y := float64(70)
+	y := float64(70)	
 
 	var opcard ebiten.DrawImageOptions
 	opcard.GeoM.Translate(x, y)
-	screen.DrawImage(cardimg, &opcard)
+	// TODO: スクリーンに描画する
 }
 
 func (c *uicard) cardimg() (*ebiten.Image, error) {
