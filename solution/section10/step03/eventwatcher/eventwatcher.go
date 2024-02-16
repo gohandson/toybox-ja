@@ -2,41 +2,30 @@ package eventwatcher
 
 import (
 	"context"
-	"errors"
 	"net/http"
-	"os"
 	"time"
 
-	"cloud.google.com/go/datastore"
 	"github.com/tenntenn/connpass"
 )
 
-var projectID = os.Getenv("GOOGLE_CLOUD_PROJECT")
-
 type Condition struct {
-	ID    int64  `datastore:"-"`
-	Kind  string `datastore:"kind"`
-	Value string `datastore:"value"`
+	Kind  string
+	Value string
 }
 
 type EventWatcher struct {
-	connpass  *connpass.Client
-	datastore *datastore.Client
-	mux       *http.ServeMux
-	server    *http.Server
+	connpass *connpass.Client
+	mux      *http.ServeMux
+	server   *http.Server
 }
 
-func New(ctx context.Context, addr string) (*EventWatcher, error) {
-	db, err := datastore.NewClient(ctx, projectID)
-	if err != nil {
-		return nil, err
-	}
+func New(addr string) (*EventWatcher, error) {
 	mux := http.NewServeMux()
+
 	return &EventWatcher{
-		connpass:  connpass.NewClient(),
-		datastore: db,
-		mux:       mux,
-		server:    &http.Server{Addr: addr, Handler: mux},
+		connpass: connpass.NewClient(),
+		mux:      mux,
+		server:   &http.Server{Addr: addr, Handler: mux},
 	}, nil
 }
 
@@ -46,25 +35,6 @@ func (ew *EventWatcher) Start() error {
 		return err
 	}
 	return nil
-}
-
-func (ew *EventWatcher) Conditions(ctx context.Context, limit int) ([]*Condition, error) {
-	var cs []*Condition
-	q := datastore.NewQuery("Condition").Limit(limit)
-
-	keys, err := ew.datastore.GetAll(ctx, q, &cs)
-	switch {
-	case errors.Is(err, datastore.ErrNoSuchEntity):
-		return []*Condition{}, nil
-	case err != nil:
-		return nil, err
-	}
-
-	for i := range cs {
-		cs[i].ID = keys[i].ID
-	}
-
-	return cs, nil
 }
 
 func (ew *EventWatcher) Events(ctx context.Context, cs []*Condition) ([]*connpass.Event, error) {
@@ -110,22 +80,4 @@ func (ew *EventWatcher) makeParams(cs []*Condition) ([]connpass.Param, error) {
 	}
 
 	return params, nil
-}
-
-func (ew *EventWatcher) AddCondition(ctx context.Context, c *Condition) error {
-	key := datastore.IncompleteKey("Condition", nil)
-	newKey, err := ew.datastore.Put(ctx, key, c)
-	if err != nil {
-		return err
-	}
-	c.ID = newKey.ID
-	return nil
-}
-
-func (ew *EventWatcher) RemoveCondition(ctx context.Context, id int64) error {
-	key := datastore.IDKey("Condition", id, nil)
-	if err := ew.datastore.Delete(ctx, key); err != nil {
-		return err
-	}
-	return nil
 }

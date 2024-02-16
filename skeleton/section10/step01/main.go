@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net"
+	"io"
+	"net/http"
 	"os"
-
-	"github.com/gohandson/toybox-ja/skeleton/section10/step01/eventwatcher"
 )
 
 func main() {
@@ -16,20 +15,22 @@ func main() {
 }
 
 func run() error {
-	// TODO: 環境変数PORTからポート番号を取得する
+	const url = "https://connpass.com/api/v1/event/?keyword=golang"
+	// TODO: GETメソッドのリクエストを生成する
 
-	if port == "" {
-		port = "8080"
-	}
-	// TODO: ホストを空、ポートを変数portとしてnet.JoinHostPort関数を呼ぶ
-
-
-	ew, err := eventwatcher.New(addr)
 	if err != nil {
 		return err
 	}
 
-	if err := ew.Start(); err != nil {
+	// TODO: http.DefaultClientでリクエストを送る
+
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// 標準出力にダンプする
+	if _, err := io.Copy(os.Stdout, resp.Body); err != nil {
 		return err
 	}
 

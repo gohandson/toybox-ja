@@ -1,11 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"net"
 	"os"
 
-	"github.com/gohandson/toybox-ja/skeleton/section10/step02/eventwatcher"
+	"github.com/tenntenn/connpass"
 )
 
 func main() {
@@ -16,19 +16,22 @@ func main() {
 }
 
 func run() error {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	addr := net.JoinHostPort("", port)
-
-	ew, err := eventwatcher.New(addr)
+	params, err := connpass.SearchParam(connpass.Keyword("golang"))
 	if err != nil {
 		return err
 	}
 
-	if err := ew.Start(); err != nil {
+	// TODO: connpassのAPIクライアントを生成する
+
+	ctx := context.Background()
+	result, err := cli.Search(ctx, params)
+	if err != nil {
 		return err
+	}
+
+	for _, e := range result.Events {
+		// TODO: イベントのタイトルを出力する
+
 	}
 
 	return nil

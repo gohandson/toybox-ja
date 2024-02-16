@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gohandson/toybox-ja/solution/section09/step03/eventwatcher"
+	ebiten "github.com/hajimehoshi/ebiten/v2"
 )
 
 func main() {
@@ -15,12 +15,10 @@ func main() {
 }
 
 func run() error {
-	ew, err := eventwatcher.New(":8080")
-	if err != nil {
-		return err
-	}
-
-	if err := ew.Start(); err != nil {
+	g := newGame()
+	ebiten.SetWindowSize(g.width, g.height)
+	ebiten.SetWindowTitle("Poker")
+	if err := ebiten.RunGame(g); err != nil {
 		return err
 	}
 

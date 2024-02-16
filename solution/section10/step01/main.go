@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net"
+	"io"
+	"net/http"
 	"os"
-
-	"github.com/gohandson/toybox-ja/solution/section10/step01/eventwatcher"
 )
 
 func main() {
@@ -16,18 +15,20 @@ func main() {
 }
 
 func run() error {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	addr := net.JoinHostPort("", port)
-
-	ew, err := eventwatcher.New(addr)
+	const url = "https://connpass.com/api/v1/event/?keyword=golang"
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return err
 	}
 
-	if err := ew.Start(); err != nil {
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// 標準出力にダンプする
+	if _, err := io.Copy(os.Stdout, resp.Body); err != nil {
 		return err
 	}
 

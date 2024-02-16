@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"io"
-	"net/http"
 	"os"
+
+	ebiten "github.com/hajimehoshi/ebiten/v2"
 )
 
 func main() {
@@ -15,22 +15,10 @@ func main() {
 }
 
 func run() error {
-	const url = "https://connpass.com/api/v1/event/?keyword=golang"
-	// TODO: GETメソッドのリクエストを生成する
-
-	if err != nil {
-		return err
-	}
-
-	// TODO: http.DefaultClientでリクエストを送る
-
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	// 標準出力にダンプする
-	if _, err := io.Copy(os.Stdout, resp.Body); err != nil {
+	g := newGame()
+	ebiten.SetWindowSize(g.width, g.height)
+	ebiten.SetWindowTitle("Poker")
+	if err := ebiten.RunGame(g); err != nil {
 		return err
 	}
 
